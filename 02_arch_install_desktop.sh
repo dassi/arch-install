@@ -1,8 +1,13 @@
 #!/bin/sh
 
 # ====================================================
+# Linux provisioning script.
 # Run as root.
-# Inspired and taken from LARBS.
+# Inspired and taken from LARBS (Luke Smith).
+# Made to be rerun.
+# Keep me up to date.
+#
+# TBD: Automatically save a list of installed packages, instead of csv list in here.
 #
 
 set -e
@@ -18,7 +23,7 @@ apps=$(cat <<EOF
 PAC,xorg-server,"is the graphical server."
 PAC,xorg-xwininfo,"allows querying information about windows."
 PAC,xorg-xinit,"starts the graphical server."
-PAC,ttf-linux-libertine,"provides the sans and serif fonts for LARBS."
+PAC,ttf-linux-libertine,"provides the sans and serif fonts"
 AUR,lf-git,"is an extensive terminal file manager that everyone likes."
 PAC,bc,"is used for a dropdown calculator."
 PAC,xcompmgr,"is for transparency and removing screen-tearing."
@@ -32,11 +37,15 @@ PAC,sxiv,"is a minimalist image viewer."
 PAC,xwallpaper,"sets the wallpaper."
 PAC,ffmpeg,"can record and splice video and audio on the command line."
 PAC,gnome-keyring,"serves as the system keyring."
+
 AUR,gtk-theme-arc-gruvbox-git,"gives the dark GTK theme used in LARBS."
+
 PAC,neovim,"a tidier vim with some useful features"
 PAC,mpv,"is the patrician's choice video player."
 PAC,man-db,"lets you read man pages of programs."
+
 PAC,noto-fonts-emoji,"is an emoji font."
+
 PAC,pipewire,"is the audio system."
 PAC,pipewire-pulse,"gives pipewire compatibility with PulseAudio programs."
 PAC,pulsemixer,"is an audio controller."
@@ -56,7 +65,9 @@ PAC,poppler,"manipulates .pdfs and gives .pdf previews and other .pdf functions.
 PAC,mediainfo,"shows audio and video information."
 PAC,atool,"manages and gives information about archives."
 PAC,fzf,"is a fuzzy finder tool."
+
 PAC,highlight,"can highlight code output."
+
 PAC,xorg-xbacklight,"enables changing screen brightness levels."
 AUR,zsh-fast-syntax-highlighting,"provides syntax highlighting in the shell."
 AUR,htop,"is a graphical and colorful system monitor."
@@ -155,8 +166,8 @@ installationLoop() {
 }
 
 newPerms() { # Set special sudoers settings for install (or after).
-		sed -i "/#LARBS/d" /etc/sudoers
-		echo "$* #LARBS" >> /etc/sudoers
+		sed -i "/#FROM_INSTALL_SCRIPT/d" /etc/sudoers
+		echo "$* #FROM_INSTALL_SCRIPT" >> /etc/sudoers
 }
 
 
@@ -233,19 +244,10 @@ installationLoop
 #chezmoi init --apply $dotfilesrepo
 
 
-# # Create default RSS urls file if none exists.
-# [ ! -f "/home/$username/.config/newsboat/urls" ] && echo "http://lukesmith.xyz/rss.xml
-# https://notrelated.libsyn.com/rss
-# https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA \"~Luke Smith (YouTube)\"
-# https://www.archlinux.org/feeds/news/" > "/home/$username/.config/newsboat/urls"
-
 
 # Make zsh the default shell for the user.
 chsh -s /bin/zsh $username
 sudo -u $username mkdir -p "/home/$username/.cache/zsh/"
-
-# dbus UUID must be generated for Artix runit.
-#dbus-uuidgen --ensure
 
 # Tap to click
 [ ! -f /etc/X11/xorg.conf.d/40-libinput.conf ] && echo 'Section "InputClass"
@@ -262,7 +264,7 @@ EndSection' > /etc/X11/xorg.conf.d/40-libinput.conf
 
 # This line, overwriting the `newperms` command above will allow the user to run
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.
-newPerms "%wheel ALL=(ALL) ALL #LARBS
+newPerms "%wheel ALL=(ALL) ALL #FROM_INSTALL_SCRIPT
 %wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/wifi-menu,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman -Syu,/usr/bin/pacman -Syyu,/usr/bin/packer -Syu,/usr/bin/packer -Syyu,/usr/bin/systemctl restart NetworkManager,/usr/bin/rc-service NetworkManager restart,/usr/bin/pacman -Syyu --noconfirm,/usr/bin/loadkeys,/usr/bin/paru,/usr/bin/pacman -Syyuw --noconfirm"
 
 

@@ -86,7 +86,8 @@ mount --mkdir /dev/disk/by-label/HOME /mnt/home
 # vim /etc/pacman.d/mirrorlist
 
 # Install base arch system
-# Bei Problemen mit package integrity: pacman -Sy archlinux-keyring
+# Bei Problemen mit package integrity:
+pacman -Sy archlinux-keyring
 pacstrap /mnt base base-devel linux linux-firmware
 
 # Install base artix system, some more
@@ -104,7 +105,6 @@ swapon /mnt/swapfile
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # chroot
-#arch-chroot /mnt /bin/bash
 arch-chroot /mnt
 
 
@@ -114,8 +114,8 @@ ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime
 hwclock --systohc
 vim /etc/locale.gen
 # ... and uncomment the used ones, typically de_CH.UTF-8 and en_US.UTF-8
-
 locale-gen
+
 vim /etc/locale.conf
 # Inhalt:
 # LANG=en_US.UTF-8
@@ -153,7 +153,8 @@ passwd
 # GRUB_GFXMODE=1024x768x32
 # GRUB_GFXPAYLOAD_LINUX=keep
 
-#OPTIMIZE: https://wiki.archlinux.org/title/Microcode
+# https://wiki.archlinux.org/title/Microcode
+pacman -S intel-ucode
 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
@@ -176,9 +177,11 @@ exit
 # Hm, says "target busy" ? Evt. swapoff vorher?
 umount -R /mnt
 
+# reboot and remove your USB stick
 reboot
 
 
 # dann: desktop install script ...
-curl -O https://github.com/dassi/arch-install/arch_install_desktop.sh
-./arch_install_desktop.sh
+# falls wifi: evt mit nmtui netzerk/wifi aktivieren
+curl -O https://github.com/dassi/arch-install/02_arch_install_desktop.sh
+bash 02_arch_install_desktop.sh
