@@ -9,8 +9,8 @@ Initially taken (thanks!) and simplified from Luke Smith: https://larbs.xyz/ (ht
 ## Usage
 
 - Boot from an arch ISO
-- Follow the steps in the pseudo shell script: curl -LO https://github.com/dassi/arch-install/raw/main/01_arch_install_linux.sh
-- After booting into the basic arch linux, get and run the other script: curl -LO https://github.com/dassi/arch-install/raw/main/02_arch_install_desktop.sh
+- Follow the steps in the pseudo shell script: curl -O https://raw.githubusercontent.com/dassi/arch-install/main/01_arch_install_linux.sh
+- After booting into the basic arch linux, get and run the other script: curl -O https://raw.githubusercontent.com/dassi/arch-install/main/02_arch_install_desktop.sh
 
 ## Scope
 
