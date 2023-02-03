@@ -153,13 +153,13 @@ installationLoop() {
 
 		# Read CSV line by line and install with specified method
 		while IFS=, read -r tag program comment; do
-				n=$((n+1))
+#				n=$((n+1))
 				case "$tag" in
 						"PAC") installPkg "$program"  ;;
 						"AUR") installPkgAur "$program" ;;
 						"GIT") installGitMake "$program"  ;;
 						"PIP") installPip "$program"  ;;
-						*) installPkg "$program"  ;;
+#						*) installPkg "$program"  ;;
 				esac
 		done < <(echo "$apps") ;
 #		done < /tmp/progs.csv ;
