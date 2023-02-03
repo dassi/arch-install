@@ -37,15 +37,9 @@ PAC,sxiv,"is a minimalist image viewer."
 PAC,xwallpaper,"sets the wallpaper."
 PAC,ffmpeg,"can record and splice video and audio on the command line."
 PAC,gnome-keyring,"serves as the system keyring."
-
-AUR,gtk-theme-arc-gruvbox-git,"gives the dark GTK theme used in LARBS."
-
 PAC,neovim,"a tidier vim with some useful features"
 PAC,mpv,"is the patrician's choice video player."
 PAC,man-db,"lets you read man pages of programs."
-
-PAC,noto-fonts-emoji,"is an emoji font."
-
 PAC,pipewire,"is the audio system."
 PAC,pipewire-pulse,"gives pipewire compatibility with PulseAudio programs."
 PAC,pulsemixer,"is an audio controller."
@@ -65,9 +59,6 @@ PAC,poppler,"manipulates .pdfs and gives .pdf previews and other .pdf functions.
 PAC,mediainfo,"shows audio and video information."
 PAC,atool,"manages and gives information about archives."
 PAC,fzf,"is a fuzzy finder tool."
-
-PAC,highlight,"can highlight code output."
-
 PAC,xorg-xbacklight,"enables changing screen brightness levels."
 AUR,zsh-fast-syntax-highlighting,"provides syntax highlighting in the shell."
 AUR,htop,"is a graphical and colorful system monitor."
@@ -81,7 +72,6 @@ PAC,socat,"is a utility which establishes two byte streams and transfers data be
 PAC,moreutils,"is a collection of useful unix tools."
 PAC,rsync,"rsync"
 PAC,nginx,"webserver for local development"
-PAC,chezmoi,"dotfiles manager"
 EOF
 )
 
@@ -89,6 +79,8 @@ EOF
 # TBD some statusbar GIT,https://git.suckless.org/dwmblocks,"serves as the modular status bar."
 #AUR,mutt-wizard-git,"is a light-weight terminal-based email system."
 #AUR,task-spooler,"queues commands or files for download."
+#PAC,noto-fonts-emoji,"is an emoji font."
+#PAC,highlight,"can highlight code output."
 
 installPkg(){
 		pacman --noconfirm --needed -S "$1"
@@ -104,10 +96,10 @@ installAurhelper() {
 		# Should be run after repodir is created and var is set.
 		sudo -u $username mkdir -p "$repodir/yay-bin"
 		pushd "$repodir/yay-bin"
-		
+
 		sudo -u $username git clone --depth 1 "https://aur.archlinux.org/yay-bin.git" "$repodir/yay-bin" >/dev/null 2>&1 ||
 				{ sudo -u $username git pull --force origin master;}
-		
+
 		sudo -u $username makepkg --noconfirm -si >/dev/null 2>&1
 		popd
 }
@@ -148,7 +140,7 @@ installationLoop() {
 
 		# Remove commented lines
 #		sed '/^#/d' ./arch_progs.csv > /tmp/progs.csv
-		
+
 		aurinstalled=$(pacman -Qqm)
 
 		# Read CSV line by line and install with specified method
@@ -269,4 +261,3 @@ newPerms "%wheel ALL=(ALL) ALL #FROM_INSTALL_SCRIPT
 
 
 echo "complete. maybe reboot?"
-
