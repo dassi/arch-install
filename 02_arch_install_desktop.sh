@@ -21,13 +21,18 @@ repodir="/home/$username/.local/src"
 #TAG,NAME IN REPO (or git url),PURPOSE (should be a verb phrase to sound right while installing)
 apps=$(cat <<EOF
 PAC,sway,"i3 style wayland window manager"
+PAC,swaylock,"sway lock screen"
+PAC,swayidle,"idle manager for sway"
+PAC,waybar,"good statusbar for sway"
+PAC,xorg-xwayland,"For compatibility with X application, important for Pharo"
 PAC,ttf-linux-libertine,"provides the sans and serif fonts"
+PAC,ttf-noto-nerd,"nerdfont variant of noto, with glyphs"
 AUR,lf-git,"is an extensive terminal file manager that everyone likes."
 PAC,bc,"is used for a dropdown calculator."
 PAC,dosfstools,"allows your computer to access dos-like filesystems."
 PAC,libnotify,"allows desktop notifications."
 PAC,exfat-utils,"allows management of FAT drives."
-PAC,sxiv,"is a minimalist image viewer."
+PAC,imv,"is a minimalist image viewer."
 PAC,ffmpeg,"can record and splice video and audio on the command line."
 PAC,gnome-keyring,"serves as the system keyring."
 PAC,neovim,"a tidier vim with some useful features"
@@ -52,6 +57,16 @@ PAC,socat,"is a utility which establishes two byte streams and transfers data be
 PAC,moreutils,"is a collection of useful unix tools."
 PAC,rsync,"rsync"
 PAC,nginx,"webserver for local development"
+PAC,ripgrep,"grep alternativ"
+PAC,brightnessctl,"controls backlight brightness of screen"
+PAC,libvirt,"virtualization tools"
+PAC,virt-install,"vm installation tools"
+PAC,qemu-full,"virtualization hypervisor for usage with KVM"
+PAC,ufw,"firewall"
+PAC,virt-manager,"GUI for libvirt"
+PAC,udisks2,"USB devices daemon"
+PAC,udiskie,"USB disk automounter"
+PAC,dnsmasq,"used for libvirt networking"
 EOF
 )
 
@@ -162,6 +177,7 @@ chown -R $username:wheel "$(dirname "$repodir")"
 
 # "Synchronizing system time to ensure successful and secure installation of software..."
 ntpdate 0.europe.pool.ntp.org
+systemctl start ntpd.service
 
 # Allow user to run sudo without password. Since AUR programs must be installed
 # in a fakeroot environment, this is required for all builds with AUR.
@@ -220,6 +236,16 @@ installationLoop
 # Make zsh the default shell for the user.
 chsh -s /bin/zsh $username
 sudo -u $username mkdir -p "/home/$username/.cache/zsh/"
+
+
+# libvirt config
+sudo usermod -a -G libvirt dassi
+sudo systemctl start libvirtd.service 
+sudo systemctl start virtlogd.service
+
+# Some stuff after all software is installed
+# Give nginx access to the path to all dev web_root, which are beneath the home dir
+setfacl -m g:http:x dassi
 
 # Tap to click
 #[ ! -f /etc/X11/xorg.conf.d/40-libinput.conf ] && echo 'Section "InputClass"
