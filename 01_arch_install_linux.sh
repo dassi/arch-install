@@ -3,6 +3,7 @@
 # Assuming:
 # - UEFI boot system
 # 
+# Check if you have UEFI system: cat /sys/firmware/efi/fw_platform_size
 
 # TBD: Use a text displayer for each step to show instructions and let user do it on the shell
 #
@@ -70,14 +71,14 @@ lvcreate -l 50%FREE lvm-vg1 -n lv-home
 # UEFI fat32 statt ext4 auf boot wenn UEFI:
 mkfs.fat -F32 /dev/sda1
 fatlabel /dev/sda1 BOOT
-#Bei legacy BIOS: mkfs.ext4 /dev/...
+# Bei legacy BIOS keine boot partition
 mkfs.ext4 -L ROOT /dev/lvm-vg1/lv-root
 mkfs.ext4 -L HOME /dev/lvm-vg1/lv-home
 #mkswap -L SWAP /dev/sdaY
 
 # Echte Mountpoints vorbereiten auf dem noch live system:
+# BOOT nur bei UEFI
 mount /dev/disk/by-label/ROOT /mnt
-
 mount --mkdir /dev/disk/by-label/BOOT /mnt/boot
 mount --mkdir /dev/disk/by-label/HOME /mnt/home
 
@@ -90,7 +91,7 @@ mount --mkdir /dev/disk/by-label/HOME /mnt/home
 pacman -Sy archlinux-keyring
 pacstrap /mnt base base-devel linux linux-firmware
 
-# Install base artix system, some more
+# Install base system, some more essentials for the start
 pacstrap /mnt efibootmgr vim lvm2 networkmanager grub os-prober man-db man-pages openssh
 
 
@@ -156,6 +157,7 @@ passwd
 # https://wiki.archlinux.org/title/Microcode
 pacman -S intel-ucode
 
+# For BIOS: grub-install --target=i386-pc /dev/sdX
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 

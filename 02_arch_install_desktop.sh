@@ -38,7 +38,7 @@ PAC,gnome-keyring,"serves as the system keyring."
 PAC,neovim,"a tidier vim with some useful features"
 PAC,mpv,"is the patrician's choice video player."
 PAC,man-db,"lets you read man pages of programs."
-PAC,pipewire,"is the audio system."
+PAC,pipewire,"is thesaudio system."
 PAC,pipewire-pulse,"gives pipewire compatibility with PulseAudio programs."
 PAC,unrar,"extracts rar's."
 PAC,unzip,"unzips zips."
@@ -67,6 +67,8 @@ PAC,virt-manager,"GUI for libvirt"
 PAC,udisks2,"USB devices daemon"
 PAC,udiskie,"USB disk automounter"
 PAC,dnsmasq,"used for libvirt networking"
+PAC,cups,"printing system"
+PAC,libreoffice-still-de,"LibreOffice german"
 EOF
 )
 
@@ -245,7 +247,7 @@ sudo systemctl start virtlogd.service
 
 # Some stuff after all software is installed
 # Give nginx access to the path to all dev web_root, which are beneath the home dir
-setfacl -m g:http:x dassi
+setfacl -m g:http:x /home/dassi
 
 # Tap to click
 #[ ! -f /etc/X11/xorg.conf.d/40-libinput.conf ] && echo 'Section "InputClass"
