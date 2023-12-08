@@ -1,0 +1,5 @@
+#cloud-config
+users:
+  - name: root
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAnxiNphwVxbXWBQG8hG0MNmR1fx5Ki/dNDZd/9jWCTViVIMlTPJ2qi3bHMVyX07ix5vhUSaPzl8LFuoK0mjOQ2APKn9ItiNk1RFq1l46/nLoS+DPEAutuJXvH92rv62g6rJS0thVnsr2oEJ4x15qdVRSpMeu4lPhY1i5QHd/vN6Exs2o9YnNJ5ewSIRF1JB0xyR12fna7EfGogrR3ckmHeZnx+Uqlnd9HRKX6Tp8rSYqPqY2TmnlcPzp+0XftBO15/vgcY47FqYgqxByssVU+L1LRjht/417ietHP3y/lZ/3IDXSSiiV5/OobAD+NuOeT7sSI9IxDrqF5XGKM1Ecjcw== dassi@mindclue-dassi-imac.local
