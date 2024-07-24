@@ -24,6 +24,7 @@ PAC,sway,"i3 style wayland window manager"
 PAC,swaylock,"sway lock screen"
 PAC,swayidle,"idle manager for sway"
 PAC,waybar,"good statusbar for sway"
+PAC,foot,"sways default terminal"
 PAC,xorg-xwayland,"For compatibility with X application, important for Pharo"
 PAC,ttf-linux-libertine,"provides the sans and serif fonts"
 PAC,ttf-noto-nerd,"nerdfont variant of noto, with glyphs"
@@ -74,7 +75,10 @@ PAC,fd,"alternative to find, used in telescope for nvim"
 PAC,magic-wormhole,"Transfer text from computer to computer"
 AUR,wayclip-git,"clipboard tools for nvim to work with system cliboard"
 EOF
-)
+		)
+
+# TODO: foot, ...
+
 
 #ERROR A,htop-vim-git,"is a graphical and colorful system monitor."
 # TBD some statusbar GIT,https://git.suckless.org/dwmblocks,"serves as the modular status bar."
@@ -188,7 +192,7 @@ chown -R $username:wheel "$(dirname "$repodir")"
 
 # "Synchronizing system time to ensure successful and secure installation of software..."
 ntpdate 0.europe.pool.ntp.org
-systemctl start ntpd.service
+systemctl enable --now ntpd.service
 
 # Allow user to run sudo without password. Since AUR programs must be installed
 # in a fakeroot environment, this is required for all builds with AUR.
@@ -251,8 +255,8 @@ sudo -u $username mkdir -p "/home/$username/.cache/zsh/"
 
 # libvirt config
 sudo usermod -a -G libvirt dassi
-sudo systemctl start libvirtd.service 
-sudo systemctl start virtlogd.service
+sudo systemctl enable --now libvirtd.service 
+sudo systemctl enable --now virtlogd.service
 
 # Some stuff after all software is installed
 # Give nginx access to the path to all dev web_root, which are beneath the home dir
@@ -271,6 +275,9 @@ setfacl -m g:http:x /home/dassi
 # # Start/restart PulseAudio.
 # killall pulseaudio; sudo -u $username pulseaudio --start
 
+# start some services
+sudo usermod -a -G seat dassi
+sudo systemctl enable --now seatd.service
 
 # This line, overwriting the `newperms` command above will allow the user to run
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.

@@ -1,0 +1,11 @@
+Installation on a headless server:
+
+(See https://wiki.archlinux.org/title/Install_Arch_Linux_via_SSH)
+
+--- Insert Arch USB into USB
+--- On a second USB drive, with FAT32, put all three files for a cloud-init setup
+--- Boot device with both USB sticks inserted.
+--- System will boot, and start ssh server and can be accessed over network
+--- IP address needs to be found out, through DHCP server for example
+
+(Tested with fitlet mini computer)
