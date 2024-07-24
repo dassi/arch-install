@@ -69,6 +69,10 @@ PAC,udiskie,"USB disk automounter"
 PAC,dnsmasq,"used for libvirt networking"
 PAC,cups,"printing system"
 PAC,libreoffice-still-de,"LibreOffice german"
+NPM,less,"LESS compiler"
+PAC,fd,"alternative to find, used in telescope for nvim"
+PAC,magic-wormhole,"Transfer text from computer to computer"
+AUR,wayclip-git,"clipboard tools for nvim to work with system cliboard"
 EOF
 )
 
@@ -131,6 +135,10 @@ installPip() {
 		yes | pip install "$1"
 }
 
+installNodePkg() {
+	[ -x "$(command -v "npm")" ] || installPkg npm >/dev/null 2>&1
+	sudo npm install -g "$1"
+}
 
 
 installationLoop() {
@@ -148,6 +156,7 @@ installationLoop() {
 						"AUR") installPkgAur "$program" ;;
 						"GIT") installGitMake "$program"  ;;
 						"PIP") installPip "$program"  ;;
+						"NPM") installNodePkg "$program" ;;
 #						*) installPkg "$program"  ;;
 				esac
 		done < <(echo "$apps") ;
@@ -261,6 +270,7 @@ setfacl -m g:http:x /home/dassi
 
 # # Start/restart PulseAudio.
 # killall pulseaudio; sudo -u $username pulseaudio --start
+
 
 # This line, overwriting the `newperms` command above will allow the user to run
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.
