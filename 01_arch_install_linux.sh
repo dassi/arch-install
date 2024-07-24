@@ -228,5 +228,6 @@ systemctl enable --now NetworkManager
 
 # Then: desktop install script ...
 # If wifi: use nmtui to activate wifi network
-curl -O https://github.com/dassi/arch-install/02_arch_install_desktop.sh
+# Better?: https://raw.githubusercontent.com/dassi/arch-install/sway/02_arch_install_desktop.sh
+curl -O https://raw.githubusercontent.com/dassi/arch-install/sway/02_arch_install_desktop.sh
 bash 02_arch_install_desktop.sh
