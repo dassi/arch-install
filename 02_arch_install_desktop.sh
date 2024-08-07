@@ -69,13 +69,22 @@ PAC,udisks2,"USB devices daemon"
 PAC,udiskie,"USB disk automounter"
 PAC,dnsmasq,"used for libvirt networking"
 PAC,cups,"printing system"
+PAC,nss-mdns,"for CUPS to better communicate with network printers"
 PAC,libreoffice-still-de,"LibreOffice german"
 NPM,less,"LESS compiler"
 PAC,fd,"alternative to find, used in telescope for nvim"
 PAC,magic-wormhole,"Transfer text from computer to computer"
 AUR,wayclip-git,"clipboard tools for nvim to work with system cliboard"
+AUR,ddcci-driver-linux-dkms,"backlight support for external monitors through brightnessctl"
+AUR,acdcontrol,"Apple Cinema Display Control (brightness)"
 EOF
 		)
+
+# Evt. easyeffects
+# lsp-plugins-lv2
+#
+# AUR,surf,"Simplistic web browser"
+#
 
 # TODO: foot, ...
 
