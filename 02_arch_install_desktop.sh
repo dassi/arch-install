@@ -97,6 +97,7 @@ installationLoop() {
 
 		# Read CSV line by line and install with specified method
 		while IFS=, read -r tag program comment; do
+        program=$(echo "$program" | tr -d '"')
 				case "$tag" in
           "PAC") pacPackages+=($program)  ;;
           "AUR") aurPackages+=($program) ;;
