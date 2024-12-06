@@ -20,6 +20,12 @@ exit
 # Set the correct keyboard layout, so you can type correctly
 loadkeys de_CH-latin1
 
+# Check if really on a UEFI device, should return 64 or 32
+cat /sys/firmware/efi/fw_platform_size
+
+# Check if Internet available
+ping archlinux.org
+
 # If system clock is wrong, then sync with internet time
 timedatectl set-ntp true
 
@@ -102,10 +108,10 @@ mount --mkdir /dev/disk/by-label/HOME /mnt/home
 # vim /etc/pacman.d/mirrorlist
 
 # I had some package integrity errors, due to outdated keys. So we update the keyring anyway:
-pacman -Sy archlinux-keyring
+# pacman -Sy archlinux-keyring
 
 # Install base arch system
-pacstrap /mnt base base-devel linux linux-firmware
+pacstrap -K /mnt base base-devel linux linux-firmware
 
 # Install some more essentials for the start
 pacstrap /mnt efibootmgr vim lvm2 networkmanager grub os-prober man-db man-pages openssh
@@ -183,7 +189,7 @@ passwd dassi
 visudo
 
 # TODO: Only possible after reboot and not in chroot?
-systemctl enable --now NetworkManager
+# systemctl enable --now NetworkManager
 
 
 ####################
@@ -232,4 +238,5 @@ systemctl enable --now NetworkManager
 # If wifi: use nmtui to activate wifi network
 # Better?: https://raw.githubusercontent.com/dassi/arch-install/sway/02_arch_install_desktop.sh
 curl -O https://raw.githubusercontent.com/dassi/arch-install/sway/02_arch_install_desktop.sh
+curl -O https://raw.githubusercontent.com/dassi/arch-install/sway/packages.csv
 bash 02_arch_install_desktop.sh
