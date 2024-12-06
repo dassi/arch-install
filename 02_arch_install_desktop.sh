@@ -11,7 +11,7 @@
 # Use: pacman -Qent
 #
 
-set -e
+set -xe
 
 #dotfilesrepo="https://github.com/dassi/dotfiles.git"
 username="dassi"
