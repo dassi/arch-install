@@ -8,6 +8,7 @@
 # Keep me up to date.
 #
 # TBD: Automatically save a list of installed packages, instead of csv list in here.
+# Use: pacman -Qent
 #
 
 set -e
@@ -20,6 +21,8 @@ repodir="/home/$username/.local/src"
 
 #TAG,NAME IN REPO (or git url),PURPOSE (should be a verb phrase to sound right while installing)
 apps=$(cat <<EOF
+PAC,polkit,"policy kit"
+PAC,polkit-gnome,"normal polkit agent"
 PAC,sway,"i3 style wayland window manager"
 PAC,swaylock,"sway lock screen"
 PAC,swayidle,"idle manager for sway"
@@ -77,8 +80,16 @@ PAC,magic-wormhole,"Transfer text from computer to computer"
 AUR,wayclip-git,"clipboard tools for nvim to work with system cliboard"
 AUR,ddcci-driver-linux-dkms,"backlight support for external monitors through brightnessctl"
 AUR,acdcontrol,"Apple Cinema Display Control (brightness)"
+PAC,gnupg,"GPG suite"
+AUR,input-remapper-git,"Remap keys on keyboard for productivity"
+PAC,direnv,"Environment variables per directory in .envrc"
 EOF
 		)
+
+# Remark: Get a list of explicitly installed packages on the system, first from standard repos, then from foreign repos (AUR):
+# pacman --quiet -Qent
+# pacman --quiet -Qemt
+# pacman --quiet -Qemt | while read -r pkg; do pacman -Qi "$pkg" | grep -E 'Name|Description' | awk 'BEGIN {FS=" : "} {print "\"" $2 "\""}' | paste -d ',' - -; done 
 
 # Evt. easyeffects
 # lsp-plugins-lv2
@@ -287,6 +298,12 @@ setfacl -m g:http:x /home/dassi
 # start some services
 sudo usermod -a -G seat dassi
 sudo systemctl enable --now seatd.service
+
+sudo systemctl restart input-remapper
+sudo systemctl enable input-remapper
+
+# (legacy) cron job service, but we need it still
+sudo systemctl enable --now cronie
 
 # This line, overwriting the `newperms` command above will allow the user to run
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.

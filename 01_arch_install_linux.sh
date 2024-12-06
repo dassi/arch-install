@@ -4,6 +4,7 @@
 # - UEFI boot system (If old BIOS see comments on each section)
 # 
 # Check if you have UEFI system: cat /sys/firmware/efi/fw_platform_size
+# Check that you have activated UEFI only in BIOS boot options
 
 
 echo "Not a real script, go through the steps manually"
@@ -146,7 +147,8 @@ locale-gen
 # Config your default locale.
 # File content:
 # LANG=en_US.UTF-8
-# LC_COLLATE=C.UTF-8
+# LC_COLLATE=de_CH.UTF-8
+# LC_PAPER=de_CH.UTF-8
 vim /etc/locale.conf
 
 # Config your virtual console. At least set the correct keyboard layout.
