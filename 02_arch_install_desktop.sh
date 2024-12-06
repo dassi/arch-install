@@ -30,14 +30,15 @@ apps=$(cat packages.csv)
 
 installPkg(){
     # --noconfirm
-		pacman --needed -S "$1"
+		pacman --needed -S $@
 }
 
 # Installing from AUR
 installPkgAur() {
 #		echo "$aurinstalled" | grep -q "^$1$" && return
 # --noconfirm
-		sudo -u $username yay -S --needed "$1"
+		sudo -u $username yay -S --needed $@
+
 }
 
 installAurhelper() {
@@ -109,8 +110,8 @@ installationLoop() {
 		done < <(echo "$apps") ;
 #		done < /tmp/progs.csv ;
 
-    installPkg "${pacPackages[*]}"
-    installPkgAur "${aurPackages[*]}"
+    installPkg "${pacPackages[@]}"
+    installPkgAur "${aurPackages[@]}"
 }
 
 newPerms() { # Set special sudoers settings for install (or after).
