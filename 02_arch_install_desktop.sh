@@ -29,13 +29,15 @@ apps=$(cat packages.csv)
 # See create_package_list.sh
 
 installPkg(){
-		pacman --noconfirm --needed -S "$1"
+    # --noconfirm
+		pacman --needed -S "$1"
 }
 
 # Installing from AUR
 installPkgAur() {
 #		echo "$aurinstalled" | grep -q "^$1$" && return
-		sudo -u $username yay -S --noconfirm --needed "$1"
+# --noconfirm
+		sudo -u $username yay -S --needed "$1"
 }
 
 installAurhelper() {
@@ -124,7 +126,7 @@ mkdir -p "$repodir"
 chown -R $username:wheel "$(dirname "$repodir")"
 
 # "Synchronizing system time to ensure successful and secure installation of software..."
-ntpdate 0.europe.pool.ntp.org
+pgrep ntpd || ntpd -q
 systemctl enable --now ntpd.service
 
 # Allow user to run sudo without password. Since AUR programs must be installed

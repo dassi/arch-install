@@ -239,4 +239,7 @@ systemctl enable --now NetworkManager
 # Better?: https://raw.githubusercontent.com/dassi/arch-install/sway/02_arch_install_desktop.sh
 curl -O https://raw.githubusercontent.com/dassi/arch-install/sway/02_arch_install_desktop.sh
 curl -O https://raw.githubusercontent.com/dassi/arch-install/sway/packages.csv
+#or even the whole git repo
+git clone --depth 1 --branch sway https://github.com/dassi/arch-install 
+
 bash 02_arch_install_desktop.sh
