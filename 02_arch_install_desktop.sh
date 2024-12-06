@@ -11,7 +11,7 @@
 # Use: pacman -Qent
 #
 
-set -xe
+set -e
 
 #dotfilesrepo="https://github.com/dassi/dotfiles.git"
 username="dassi"
@@ -109,8 +109,8 @@ installationLoop() {
 		done < <(echo "$apps") ;
 #		done < /tmp/progs.csv ;
 
-    installPkg "${pacPackages[@]}"
-    installPkgAur "${aurPackages[@]}"
+    installPkg "${pacPackages[*]}"
+    installPkgAur "${aurPackages[*]}"
 }
 
 newPerms() { # Set special sudoers settings for install (or after).
