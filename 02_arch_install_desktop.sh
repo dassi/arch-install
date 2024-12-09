@@ -37,7 +37,7 @@ installPkg(){
 installPkgAur() {
 #		echo "$aurinstalled" | grep -q "^$1$" && return
 # --noconfirm
-		sudo -u $username yay -S --needed $@
+		sudo -u $username yay --aur -S --needed $@
 
 }
 
