@@ -184,6 +184,9 @@ sudo systemctl enable input-remapper
 # (legacy) cron job service, but we need it still
 sudo systemctl enable --now cronie
 
+# Enable TRIM-ing SSD devices periodically
+sudo systemctl enable --now fstrim.timer
+
 # This line, overwriting the `newperms` command above will allow the user to run
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.
 newPerms "%wheel ALL=(ALL) ALL #FROM_INSTALL_SCRIPT
