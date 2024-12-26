@@ -202,5 +202,6 @@ sudo systemctl enable --now udisks2.service
 newPerms "%wheel ALL=(ALL) ALL #FROM_INSTALL_SCRIPT
 %wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/wifi-menu,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman -Syu,/usr/bin/pacman -Syyu,/usr/bin/packer -Syu,/usr/bin/packer -Syyu,/usr/bin/systemctl restart NetworkManager,/usr/bin/rc-service NetworkManager restart,/usr/bin/pacman -Syyu --noconfirm,/usr/bin/loadkeys,/usr/bin/paru,/usr/bin/pacman -Syyuw --noconfirm"
 
+echo "Now install your chezmoi files with: chezmoi init --apply <gitrepo>"
 
 echo "complete. maybe reboot?"

@@ -114,7 +114,7 @@ mount --mkdir /dev/disk/by-label/HOME /mnt/home
 pacstrap -K /mnt base base-devel linux linux-firmware
 
 # Install some more essentials for the start
-pacstrap /mnt efibootmgr vim lvm2 networkmanager grub os-prober man-db man-pages openssh
+pacstrap /mnt efibootmgr vim lvm2 networkmanager grub os-prober man-db man-pages openssh git
 
 
 #########################
@@ -242,4 +242,5 @@ curl -O https://raw.githubusercontent.com/dassi/arch-install/sway/packages.csv
 #or even the whole git repo
 git clone --depth 1 --branch sway https://github.com/dassi/arch-install 
 
+sudo su
 bash 02_arch_install_desktop.sh
