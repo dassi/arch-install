@@ -191,6 +191,15 @@ sudo systemctl enable --now fstrim.timer
 sudo systemctl enable --now sshd.service
 
 
+# start CUPS print service
+sudo systemctl enable --now cups.service
+
+# start avahi network discovery service
+sudo systemctl enable --now avahi.service
+
+# Removable media service automounter
+sudo systemctl enable --now udisks2.service
+
 # This line, overwriting the `newperms` command above will allow the user to run
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.
 newPerms "%wheel ALL=(ALL) ALL #FROM_INSTALL_SCRIPT
