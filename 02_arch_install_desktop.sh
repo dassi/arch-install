@@ -20,7 +20,7 @@ username="dassi"
 repodir="/home/$username/.local/src"
 
 #TAG,NAME IN REPO (or git url),PURPOSE (should be a verb phrase to sound right while installing)
-apps=$(cat packages.csv)
+apps=$(cat packages_pre.csv packages.csv)
 
 # Remark: Get a list of explicitly installed packages on the system, first from standard repos, then from foreign repos (AUR):
 # pacman --quiet -Qent
