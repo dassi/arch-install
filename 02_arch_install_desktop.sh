@@ -173,6 +173,7 @@ sudo systemctl enable --now virtlogd.service
 # Some stuff after all software is installed
 # Give nginx access to the path to all dev web_root, which are beneath the home dir
 setfacl -m g:http:x /home/dassi
+sudo usermod -a -G http dassi
 
 # start some services
 sudo usermod -a -G seat dassi
