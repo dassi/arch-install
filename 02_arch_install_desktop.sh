@@ -196,7 +196,7 @@ sudo systemctl enable --now sshd.service
 sudo systemctl enable --now cups.service
 
 # start avahi network discovery service
-sudo systemctl enable --now avahi.service
+sudo systemctl enable --now avahi-daemon.service
 
 # Removable media service automounter
 sudo systemctl enable --now udisks2.service
