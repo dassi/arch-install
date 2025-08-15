@@ -41,6 +41,13 @@ installPkgAur() {
 
 }
 
+installPkgGo(){
+  # for package in $@ do
+  #   go install $package
+  # done
+  go install "$@"
+}
+
 installAurhelper() {
 		# Should be run after repodir is created and var is set.
 		sudo -u $username mkdir -p "$repodir/yay-bin"
@@ -102,6 +109,7 @@ installationLoop() {
 				case "$tag" in
           "PAC") pacPackages+=($program)  ;;
           "AUR") aurPackages+=($program) ;;
+          "GO") goPackages+=($program) ;;
 #						"GIT") installGitMake "$program"  ;;
 #						"PIP") installPip "$program"  ;;
 #						"NPM") installNodePkg "$program" ;;
@@ -112,6 +120,7 @@ installationLoop() {
 
     installPkg "${pacPackages[@]}"
     installPkgAur "${aurPackages[@]}"
+    installPkgGo "${goPackages[@]}"
 }
 
 newPerms() { # Set special sudoers settings for install (or after).
@@ -200,6 +209,9 @@ sudo systemctl enable --now avahi-daemon.service
 
 # Removable media service automounter
 sudo systemctl enable --now udisks2.service
+
+# Pacman package cache auto cleaner
+sudo systemctl enable --now paccache.timer
 
 # This line, overwriting the `newperms` command above will allow the user to run
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.
