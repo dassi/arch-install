@@ -213,6 +213,10 @@ sudo systemctl enable --now udisks2.service
 # Pacman package cache auto cleaner
 sudo systemctl enable --now paccache.timer
 
+# Logrotate timer aktivieren
+systemctl enable --now logrotate.timer
+
+
 # This line, overwriting the `newperms` command above will allow the user to run
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.
 newPerms "%wheel ALL=(ALL) ALL #FROM_INSTALL_SCRIPT
